@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Utilities;
+
+class Auth
+{
+
+    public static function id()
+    {
+
+        // keeps the ide from complaining
+        /** @var \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard $auth */
+
+        $auth = auth();
+
+        return $auth->id();
+
+    }
+
+    public static function user()
+    {
+
+        // keeps the ide from complaining
+        /** @var \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard $auth */
+
+        $auth = auth();
+
+        return $auth->user();
+
+    }
+
+}

@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Models\User;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class PersonalAccessToken extends Model
+{
+
+    use HasFactory;
+
+    protected $connection = 'mysql';
+
+    protected $table = 'User.personal_access_tokens';
+
+    protected $fillable = [
+
+        'name',
+        'token',
+        'tokenable_id',
+        'tokenable_type',
+        'abilities',
+        'last_used_at',
+        'expires_at'
+        
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            
+            'created_at' => 'date:Y-m-d H:i:s',
+            'updated_at' => 'date:Y-m-d H:i:s'
+            
+        ];
+    }
+
+
+}
