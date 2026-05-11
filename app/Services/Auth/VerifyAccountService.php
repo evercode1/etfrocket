@@ -87,6 +87,7 @@ class VerifyAccountService
     {
 
         $user->email_verified_at = $datetime;
+        $user->is_active = 1;
 
         $user->save();
 

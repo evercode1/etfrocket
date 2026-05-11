@@ -13,18 +13,31 @@ class VerifyEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $user; // Change to public so it's available in the view
     public string $token;
 
     /**
-     * Create a new message instance.
-     *
-     * @return void
+     * Update the constructor to take both User and Token
      */
-    public function __construct(string $token)
+    public function __construct($user, string $token)
     {
-
+        $this->user = $user;
         $this->token = $token;
-        
+    }
+
+    /**
+     * Get the message content definition.
+     */
+    public function content(): Content
+    {
+        return new Content(
+            markdown: 'mail.verification-request',
+            with: [
+                // Generate the full URL here instead of just the token
+                'url' => config('app.url') . '/api/account/verify/' . $this->token,
+                'name' => $this->user->name,
+            ],
+        );
     }
 
     /**
@@ -39,24 +52,6 @@ class VerifyEmail extends Mailable
         );
     }
 
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-
-            markdown: 'mail.verification-request',
-
-            with: [
-
-                'url' => $this->token
-       
-            ],
-
-        );
-        
-    }
 
     /**
      * Get the attachments for the message.
