@@ -3,7 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Models\User;
-use App\Models\PasswordReset;
+use App\Models\PasswordResetToken;
 
 class PasswordResetFormService
 {
@@ -14,7 +14,7 @@ class PasswordResetFormService
 
         // Check if the token exists
 
-        if ( ! PasswordReset::where('token', $token)->exists() ) {
+        if ( ! PasswordResetToken::where('token', $token)->exists() ) {
 
             return response()->json([
 
@@ -26,7 +26,7 @@ class PasswordResetFormService
 
         }
 
-        $passwordReset = PasswordReset::where('token', $token)->first();
+        $passwordReset = PasswordResetToken::where('token', $token)->first();
 
         if ( ! is_null($passwordReset) ) {
 

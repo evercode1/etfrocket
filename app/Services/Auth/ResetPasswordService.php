@@ -2,8 +2,8 @@
 
 namespace App\Services\Auth;
 
-use App\Models\Employee\Employee;
-use App\Models\Employee\EmployeePasswordReset;
+use App\Models\User;
+use App\Models\PasswordResetToken;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,18 +16,18 @@ class ResetPasswordService
         $request->validate([
             
             'password' => 'required|string|confirmed',
-            'employee_id' => 'required|integer',
+            'user_id' => 'required|integer',
             'token' => 'required|string'
         
         ]);
 
-        $passwordReset = EmployeePasswordReset::where('token', $request->token)->first();
+        $passwordReset = PasswordResetToken::where('token', $request->token)->first();
 
-        $id = $request->employee_id;
+        $id = $request->user_id;
 
-        $employee = Employee::find($id)->first();
+        $user = User::find($id);
 
-        if ( ! $passwordReset->email == $employee->email ) {
+        if ( $passwordReset->email !== $user->email ) {
 
             return response()->json([
             
@@ -42,7 +42,7 @@ class ResetPasswordService
 
         // eloquent wouldn't update password, had to use DB
 
-        DB::table('Employee.employees')
+        DB::table('users')
             
             ->where('id',$id )
               
@@ -52,9 +52,9 @@ class ResetPasswordService
 
         $oldToken = $request->token;
 
-        if ( EmployeePasswordReset::where('token', $oldToken)->exists() ){
+        if ( PasswordResetToken::where('token', $oldToken)->exists() ){
 
-            $oldToken = EmployeePasswordReset::where('token', $oldToken)->first();
+            $oldToken = PasswordResetToken::where('token', $oldToken)->first();
 
             $oldToken->delete();
 

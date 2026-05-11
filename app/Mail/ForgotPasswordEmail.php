@@ -30,7 +30,7 @@ class ForgotPasswordEmail extends Mailable
     {
         return new Envelope(
 
-            subject: 'Serrf Password Reset Request',
+            subject: 'Daily ETF Stats Password Reset Request',
 
         );
 

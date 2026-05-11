@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\User;
 
 class VerifyEmail extends Mailable
 {
@@ -19,7 +20,7 @@ class VerifyEmail extends Mailable
     /**
      * Update the constructor to take both User and Token
      */
-    public function __construct($user, string $token)
+    public function __construct(User $user, string $token)
     {
         $this->user = $user;
         $this->token = $token;

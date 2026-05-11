@@ -14,7 +14,6 @@ Route::get('/request-verification-token', [UserVerificationController::class, 'r
 
 Route::post('/register',[AuthController::class, 'register']);
 Route::post('/login',[AuthController::class, 'login']);
-Route::post('/login-game',[AuthController::class, 'loginGame']);
 
 Route::get('/login-check', [AuthController::class, 'loginCheck']);
 
