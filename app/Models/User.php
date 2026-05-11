@@ -10,13 +10,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Cashier\Billable;
 
-#[Fillable(['name', 'email', 'password', 'is_admin', 'is_influencer'])]
+#[Fillable(['name', 'email', 'password', 'is_admin', 'is_influencer', 'is_subscriber', 'is_active'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable;
+    use Billable, HasApiTokens, HasFactory, Notifiable;
 
     /**
      * Get the attributes that should be cast.
@@ -44,6 +45,20 @@ class User extends Authenticatable
     {
 
         return $this->is_influencer === true;
+
+    }
+
+    public function isSubscriber()
+    {
+
+        return $this->is_subscriber === true;
+
+    }
+
+    public function isActive()
+    {
+
+        return $this->is_active === true;
 
     }
 }
