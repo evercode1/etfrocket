@@ -3,7 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Models\User;
-use App\Models\PasswordReset;
+use App\Models\PasswordResetToken;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgotPasswordEmail;
@@ -34,15 +34,15 @@ class RequestPasswordResetTokenService
 
         // need to check if token already exists, if so delete
 
-        if ( PasswordReset::where('email', $email)->exists() ) {
+        if ( PasswordResetToken::where('email', $email)->exists() ) {
 
-           PasswordReset::where('email', $email)->delete();
+           PasswordResetToken::where('email', $email)->delete();
 
         }
 
         $token = Str::random(64);
 
-        PasswordReset::create([
+        PasswordResetToken::create([
 
             'email' => $email, 
             'token' => $token,

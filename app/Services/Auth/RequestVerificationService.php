@@ -73,7 +73,7 @@ class RequestVerificationService
         |--------------------------------------------------------------------------
         */
 
-        Mail::to($email)->send(new VerifyEmail($token));
+        Mail::to($email)->send(new VerifyEmail($user, $token));
 
         /*
         |--------------------------------------------------------------------------
