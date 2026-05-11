@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\VerifyEmail;
 use App\Models\UserVerification;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class RegistrationTransactionService
 {
@@ -43,10 +44,7 @@ class RegistrationTransactionService
                 'created_at' => now(),
             ]);
 
-            // 3. Send the email
-
-            Mail::to($user->email)
-                ->send(new VerifyEmail($user, $verificationToken));
+            
 
             DB::commit();
 
@@ -62,6 +60,13 @@ class RegistrationTransactionService
 
             throw new \RuntimeException('Oops! Something went wrong. Please try again later or contact support if the issue persists.');
         }
+
+        // 3. Send the email
+
+            Mail::to($user->email)
+                ->send(new VerifyEmail($user, $verificationToken));
+
+                Log::info('Sending email to: ' . $user->email);
 
         return $user;
     }

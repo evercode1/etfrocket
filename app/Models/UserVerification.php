@@ -12,6 +12,9 @@ class UserVerification extends Model
 
     protected $primaryKey = 'user_id';
 
+    // Add this to prevent Laravel from trying to auto-increment the user_id
+    public $incrementing = false;
+
     protected $fillable = [
 
         'user_id',

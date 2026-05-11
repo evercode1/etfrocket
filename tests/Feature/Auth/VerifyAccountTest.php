@@ -4,12 +4,9 @@ namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Item;
-use App\Models\Status;
-use App\Models\ItemSale;
 use Carbon\Carbon;
 use App\Models\UserVerification;
-use Database\Seeders\StatusSeeder;
+
 
 class VerifyAccountTest extends TestCase
 {
@@ -18,27 +15,17 @@ class VerifyAccountTest extends TestCase
         parent::setUp();
 
         Carbon::setTestNow(Carbon::parse('2026-04-03 12:00:00'));
-
-        
+  
         UserVerification::truncate();
-        ItemSale::truncate();
-        Item::truncate();
         User::truncate();
-        Status::truncate();
-        
 
-        $this->seed(StatusSeeder::class);
     }
 
     protected function tearDown(): void
     {
        
         UserVerification::truncate();
-        ItemSale::truncate();
-        Item::truncate();
         User::truncate();
-        Status::truncate();
-
         Carbon::setTestNow();
 
         parent::tearDown();
@@ -57,7 +44,7 @@ class VerifyAccountTest extends TestCase
     public function test_it_verifies_an_inactive_user_and_deletes_the_token(): void
     {
         $user = User::factory()->create([
-            'status_id' => 1,
+            'is_active' => 0,
             'email_verified_at' => null,
         ]);
 
@@ -74,8 +61,7 @@ class VerifyAccountTest extends TestCase
             ]);
 
         $user->refresh();
-
-        $this->assertEquals(Status::ACTIVE, $user->status_id);
+        $this->assertTrue($user->is_active == 1);
         $this->assertNotNull($user->email_verified_at);
         $this->assertEquals(
             Carbon::now()->toDateTimeString(),
@@ -90,7 +76,7 @@ class VerifyAccountTest extends TestCase
     public function test_it_returns_already_verified_message_for_active_user_and_deletes_token(): void
     {
         $user = User::factory()->create([
-            'status_id' => Status::ACTIVE,
+            'is_active' => 1,
             'email_verified_at' => Carbon::now(),
         ]);
 
