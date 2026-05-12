@@ -55,7 +55,13 @@ class SupportReplyToTicketService
 
         DB::commit();
 
-        return $response;
+        return response()->json([
+
+            'status' => 'success',
+            'message' => 'Response added to ticket successfully',
+            'response' => $response
+        
+        ], 200);
 
     }
 

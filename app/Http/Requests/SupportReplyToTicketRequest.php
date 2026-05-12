@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class SupportReplyToTicketRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return TRUE;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            
+            'support_topic_id' => 'integer|required',
+            'support_ticket_id' => 'integer|required',
+            'user_id' => 'integer|required',
+            'response_text' => 'string|required'
+
+        ];
+
+    }
+
+}
