@@ -42,4 +42,25 @@ IncludeRoutes::file('routes/Auth/auth.php');
 |
 */
 
-IncludeRoutes::file('routes/User/user.php');
+/*
+|--------------------------------------------------------------------------
+| Settings ROUTES
+|--------------------------------------------------------------------------
+|
+| routes for user settings, requires authentication
+|
+*/
+
+IncludeRoutes::file('routes/User/Settings/settings.php');
+
+
+/*
+|--------------------------------------------------------------------------
+| Support ROUTES
+|--------------------------------------------------------------------------
+|
+| routes for user support, requires authentication
+|
+*/
+
+IncludeRoutes::file('routes/User/Support/support.php');

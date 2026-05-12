@@ -58,7 +58,7 @@ class AuthController extends Controller
 
         ]);
 
-        $token = $request->get('token');
+        $token = $request->input('token');
         $hashedToken = hash('sha256', $token);
         $accessToken = PersonalAccessToken::where('token', $hashedToken)->first();
 
