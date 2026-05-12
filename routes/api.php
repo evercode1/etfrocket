@@ -26,10 +26,22 @@ IncludeRoutes::file('routes/Admin/admin.php');
 |--------------------------------------------------------------------------
 |
 | routes for admin functionalities, requires authentication
-|
+|s
 */
 
 IncludeRoutes::file('routes/Admin/Support/admin-support.php');
+
+
+/*
+|--------------------------------------------------------------------------
+| Seed ROUTES
+|--------------------------------------------------------------------------
+|
+| routes for seeds
+|
+*/
+
+IncludeRoutes::file('routes/Admin/Seeds/seeds.php');
 
 
 /*
