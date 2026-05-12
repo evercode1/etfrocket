@@ -20,8 +20,11 @@ class MakeSeedsController extends Controller
 
         $models = [
 
-            // statuses have to come first, otherwise alphabetical
-
+            'DataSources',
+            'DistributionFrequency',
+            'Etfs',
+            'EtfIssuers',
+            'EtfStrategyTypes',
             'Statuses',
             'SupportTopics',
 
