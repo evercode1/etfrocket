@@ -17,20 +17,19 @@ class ReplyFormConfigService
                 'required' => 1,
                 'max_length' => 50,
                 'instructions' => ''
-                
+
             ]
 
         ];
 
-        return [
-            
-            'section_heading' => 'Reply To Ticket', 
-            'action_type' => 'post', 
-            'post_endpoint' => 'support-reply-to-ticket',  
-            'form_config' => $form_config
-        
-        ];
+        return response()->json([
 
+            ' status' => 'success',
+            'section_heading' => 'Reply To Ticket',
+            'action_type' => 'post',
+            'post_endpoint' => 'support-reply-to-ticket',
+            'form_config' => $form_config
+
+        ], 200);
     }
-    
 }

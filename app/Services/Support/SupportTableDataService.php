@@ -4,14 +4,15 @@ namespace App\Services\Support;
 
 use App\Models\Status;
 use App\Models\SupportTicket;
+use Illuminate\Http\Request;
 
 class SupportTableDataService
 {
 
-    public function getTickets($request)
+    public function getTickets(Request $request)
     {
 
-        $status = $request->get('status');
+        $status = $request->input('status');
 
         // get the needed status ids
 
@@ -56,8 +57,15 @@ class SupportTableDataService
                     return $ticket;
                     
                 });
+
+                return response()->json([
+
+                    'status' => 'success',
+                    'tickets' => $tickets
+                
+                ], 200);
                     
-                return $tickets;
+               
 
             case 2 :
 
@@ -85,7 +93,12 @@ class SupportTableDataService
                     
                 });
                     
-                return $tickets;
+                return response()->json([
+
+                    'status' => 'success',
+                    'tickets' => $tickets
+                
+                ], 200);
 
             case 3 :
 
@@ -113,7 +126,12 @@ class SupportTableDataService
                     
                 });
                     
-                return $tickets;
+                return response()->json([
+
+                    'status' => 'success',
+                    'tickets' => $tickets
+                
+                ], 200);
 
             default :
 
@@ -139,7 +157,12 @@ class SupportTableDataService
 
                 });
 
-                return $tickets;
+                return response()->json([
+
+                    'status' => 'success',
+                    'tickets' => $tickets
+                
+                ], 200);
         }
 
     }

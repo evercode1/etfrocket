@@ -20,6 +20,17 @@ Route::get('/health/check', function() {
 
 IncludeRoutes::file('routes/Admin/admin.php');
 
+/*
+|--------------------------------------------------------------------------
+| Admin Support ROUTES
+|--------------------------------------------------------------------------
+|
+| routes for admin functionalities, requires authentication
+|
+*/
+
+IncludeRoutes::file('routes/Admin/Support/admin-support.php');
+
 
 /*
 |--------------------------------------------------------------------------
