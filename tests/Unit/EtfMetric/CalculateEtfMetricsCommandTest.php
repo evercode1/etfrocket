@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\EtfMetrics;
+namespace Tests\Unit\EtfMetric;
 
 use App\Models\DataSource;
 use App\Models\DistributionFrequency;
