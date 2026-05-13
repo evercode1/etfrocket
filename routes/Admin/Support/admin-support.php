@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Support\SupportController;
+use App\Http\Controllers\Admin\Support\ManageUsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,12 @@ Route::group(['middleware' => ['auth:sanctum', 'isAdmin']], function() {
 
     // Manage Users
 
-   
+    Route::get('/manage-users', [ManageUsersController::class, 'index']);
+    Route::get('/manage-user/{id}',[ManageUsersController::class, 'show']);
+    Route::get('/manage-user/edit/{id}',[ManageUsersController::class, 'editFormConfig']); 
+    Route::post('/manage-user/{id}',[ManageUsersController::class, 'update']);
+    Route::delete('/delete-user/{id}', [ManageUsersController::class, 'destroy']);
+    Route::get('/manage-users/search/{keyword}',[ManageUsersController::class, 'search']);
     
 
     // Support
