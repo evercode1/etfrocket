@@ -1,0 +1,37 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\EtfPriceHistory;
+use App\Models\DataSource;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends Factory<EtfPriceHistory>
+ */
+class EtfPriceHistoryFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+
+            'etf_id' => rand(1,7),
+
+            'price_date' => $this->faker->unique()->date(),
+
+            'close_price' => $this->faker->randomFloat(4, 5, 500),
+
+            'volume' => $this->faker->numberBetween(10000, 100000000),
+
+            'source_id' => DataSource::MANUAL_ENTRY,
+
+            'retrieved_at' => now(),
+
+        ];
+    }
+}

@@ -25,6 +25,8 @@ class MakeSeedsController extends Controller
             'Etfs',
             'EtfIssuers',
             'EtfStrategyTypes',
+            'MetricDirections',
+            'PerformanceRangeTypes',
             'Statuses',
             'SupportTopics',
 
