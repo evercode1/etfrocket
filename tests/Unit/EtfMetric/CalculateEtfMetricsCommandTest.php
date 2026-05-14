@@ -79,7 +79,7 @@ class CalculateEtfMetricsCommandTest extends TestCase
         $this->createPriceHistory($activeEtfTwo);
         $this->createPriceHistory($inactiveEtf);
 
-        $this->artisan('etf:calculate-metrics')
+        $this->artisan('etfs:calculate-metrics')
             ->expectsOutput('Starting ETF metric calculations...')
             ->expectsOutput('ETFs found: 2')
             ->expectsOutput('Range types found: 6')
@@ -112,7 +112,7 @@ class CalculateEtfMetricsCommandTest extends TestCase
         $this->createPriceHistory($targetEtf);
         $this->createPriceHistory($otherEtf);
 
-        $this->artisan('etf:calculate-metrics --symbol=CHPY')
+        $this->artisan('etfs:calculate-metrics --symbol=CHPY')
             ->expectsOutput('ETFs found: 1')
             ->expectsOutput('Range types found: 6')
             ->assertExitCode(0);
@@ -126,7 +126,7 @@ class CalculateEtfMetricsCommandTest extends TestCase
     {
         $this->createEtf('ZZZ', Status::INACTIVE);
 
-        $this->artisan('etf:calculate-metrics')
+        $this->artisan('etfs:calculate-metrics')
             ->expectsOutput('No active ETFs found.')
             ->assertExitCode(0);
 

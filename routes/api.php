@@ -31,6 +31,17 @@ IncludeRoutes::file('routes/Admin/admin.php');
 
 IncludeRoutes::file('routes/Admin/Support/admin-support.php');
 
+/*
+|--------------------------------------------------------------------------
+| Admin Etf Data ROUTES
+|--------------------------------------------------------------------------
+|
+| routes for admin functionalities, requires authentication
+|
+*/
+
+IncludeRoutes::file('routes/Admin/EtfData/etf-data.php');
+
 
 /*
 |--------------------------------------------------------------------------
