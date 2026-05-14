@@ -16,7 +16,7 @@ class EtfPriceHistory extends Model
         'price_date',
         'close_price',
         'volume',
-        'source_id',
+        'data_source_id',
         'retrieved_at'
 
     ];

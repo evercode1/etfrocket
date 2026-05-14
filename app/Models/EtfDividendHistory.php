@@ -16,7 +16,7 @@ class EtfDividendHistory extends Model
         'dividend_amount',
         'ex_dividend_date',
         'payment_date',
-        'source_id',
+        'data_source_id',
         'source_as_of_date',
         'retrieved_at'
 

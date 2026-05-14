@@ -90,21 +90,21 @@ class ProcessAiEtfDataExtractionServiceTest extends TestCase
             'price_date' => '2026-05-13',
             'close_price' => 25.1235,
             'volume' => 123456,
-            'source_id' => 1,
+            'data_source_id' => 1,
         ]);
 
         $this->assertDatabaseHas('etf_nav_histories', [
             'etf_id' => $this->etf->id,
             'nav_date' => '2026-05-13',
             'nav_per_share' => 25.9877,
-            'source_id' => 1,
+            'data_source_id' => 1,
         ]);
 
         $this->assertDatabaseHas('etf_aum_histories', [
             'etf_id' => $this->etf->id,
             'aum_date' => '2026-05-13',
             'assets_under_management' => 100000000,
-            'source_id' => 1,
+            'data_source_id' => 1,
         ]);
 
         $this->assertDatabaseHas('etf_dividend_histories', [
@@ -112,7 +112,7 @@ class ProcessAiEtfDataExtractionServiceTest extends TestCase
             'ex_dividend_date' => '2026-05-13',
             'dividend_amount' => 0.1235,
             'payment_date' => '2026-05-20',
-            'source_id' => 1,
+            'data_source_id' => 1,
         ]);
     }
 
@@ -147,6 +147,7 @@ class ProcessAiEtfDataExtractionServiceTest extends TestCase
             'price_date' => '2026-05-13',
             'close_price' => 25.55,
             'volume' => 999,
+            'data_source_id' => 1,
         ]);
     }
 
@@ -299,7 +300,7 @@ class ProcessAiEtfDataExtractionServiceTest extends TestCase
             'ex_dividend_date' => '2026-04-01',
             'payment_date' => '2026-04-15',
             'dividend_amount' => 0.1235,
-            'source_id' => 1,
+            'data_source_id' => 1,
         ]);
     }
 

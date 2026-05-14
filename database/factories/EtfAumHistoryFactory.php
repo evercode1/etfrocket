@@ -31,7 +31,7 @@ class EtfAumHistoryFactory extends Factory
                 50000000000
             ),
 
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
 
             'source_as_of_date' => $aumDate,
 

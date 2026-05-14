@@ -15,7 +15,7 @@ class EtfAumHistory extends Model
         'etf_id',
         'aum_date',
         'assets_under_management',
-        'source_id',
+        'data_source_id',
         'source_as_of_date',
         'retrieved_at'
 

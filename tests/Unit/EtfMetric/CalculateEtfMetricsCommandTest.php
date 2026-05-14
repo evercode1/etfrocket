@@ -157,7 +157,7 @@ class CalculateEtfMetricsCommandTest extends TestCase
             'price_date' => '2026-04-12',
             'close_price' => 10.0000,
             'volume' => 100000,
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
             'retrieved_at' => now(),
         ]);
 
@@ -166,7 +166,7 @@ class CalculateEtfMetricsCommandTest extends TestCase
             'price_date' => '2026-05-12',
             'close_price' => 12.0000,
             'volume' => 200000,
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
             'retrieved_at' => now(),
         ]);
     }

@@ -90,7 +90,7 @@ class EtfMetricUnitTest extends TestCase
             'price_date' => '2026-04-12',
             'close_price' => 10.0000,
             'volume' => 100000,
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
             'retrieved_at' => now(),
         ]);
 
@@ -99,7 +99,7 @@ class EtfMetricUnitTest extends TestCase
             'price_date' => '2026-05-12',
             'close_price' => 12.0000,
             'volume' => 200000,
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
             'retrieved_at' => now(),
         ]);
 
@@ -108,7 +108,7 @@ class EtfMetricUnitTest extends TestCase
             'dividend_amount' => 0.5000,
             'ex_dividend_date' => '2026-04-20',
             'payment_date' => '2026-04-22',
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
             'source_as_of_date' => '2026-04-20',
             'retrieved_at' => now(),
         ]);
@@ -118,7 +118,7 @@ class EtfMetricUnitTest extends TestCase
             'dividend_amount' => 0.2500,
             'ex_dividend_date' => '2026-05-05',
             'payment_date' => '2026-05-07',
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
             'source_as_of_date' => '2026-05-05',
             'retrieved_at' => now(),
         ]);
@@ -127,7 +127,7 @@ class EtfMetricUnitTest extends TestCase
             'etf_id' => $etf->id,
             'nav_date' => '2026-04-12',
             'nav_per_share' => 10.0000,
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
             'source_as_of_date' => '2026-04-12',
             'retrieved_at' => now(),
         ]);
@@ -136,7 +136,7 @@ class EtfMetricUnitTest extends TestCase
             'etf_id' => $etf->id,
             'nav_date' => '2026-05-12',
             'nav_per_share' => 10.5000,
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
             'source_as_of_date' => '2026-05-12',
             'retrieved_at' => now(),
         ]);
@@ -145,7 +145,7 @@ class EtfMetricUnitTest extends TestCase
             'etf_id' => $etf->id,
             'aum_date' => '2026-04-12',
             'assets_under_management' => 100000000,
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
             'source_as_of_date' => '2026-04-12',
             'retrieved_at' => now(),
         ]);
@@ -154,7 +154,7 @@ class EtfMetricUnitTest extends TestCase
             'etf_id' => $etf->id,
             'aum_date' => '2026-05-12',
             'assets_under_management' => 125000000,
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
             'source_as_of_date' => '2026-05-12',
             'retrieved_at' => now(),
         ]);

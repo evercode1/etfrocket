@@ -15,7 +15,7 @@ class EtfNavHistory extends Model
         'etf_id',
         'nav_date',
         'nav_per_share',
-        'source_id',
+        'data_source_id',
         'source_as_of_date',
         'retrieved_at'
 

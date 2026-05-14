@@ -33,7 +33,7 @@ class EtfDividendHistoryFactory extends Factory
                 '+14 days'
             )->format('Y-m-d'),
 
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
 
             'source_as_of_date' => $exDividendDate,
 
