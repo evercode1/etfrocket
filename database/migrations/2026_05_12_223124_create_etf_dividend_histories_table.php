@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('dividend_amount', 12, 4);
             $table->date('ex_dividend_date')->index();
             $table->date('payment_date')->nullable()->index();
-            $table->unsignedInteger('source_id')->nullable();
+            $table->unsignedInteger('data_source_id')->nullable();
             $table->date('source_as_of_date')->nullable();
             $table->timestamp('retrieved_at')->nullable();
             $table->timestamps();

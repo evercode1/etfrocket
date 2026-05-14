@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('price_date')->index();
             $table->decimal('close_price', 12, 4);
             $table->bigInteger('volume')->nullable();
-            $table->unsignedInteger('source_id')->nullable();
+            $table->unsignedInteger('data_source_id')->nullable();
             $table->timestamp('retrieved_at')->nullable();
 
             $table->timestamps();

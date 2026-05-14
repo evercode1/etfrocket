@@ -28,7 +28,7 @@ class EtfNavHistoryFactory extends Factory
 
             'nav_per_share' => $this->faker->randomFloat(4, 5, 500),
 
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
 
             'source_as_of_date' => $navDate,
 

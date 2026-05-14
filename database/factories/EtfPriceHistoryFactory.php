@@ -28,7 +28,7 @@ class EtfPriceHistoryFactory extends Factory
 
             'volume' => $this->faker->numberBetween(10000, 100000000),
 
-            'source_id' => DataSource::MANUAL_ENTRY,
+            'data_source_id' => DataSource::MANUAL_ENTRY,
 
             'retrieved_at' => now(),
 

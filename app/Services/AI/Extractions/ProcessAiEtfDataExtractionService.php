@@ -101,7 +101,7 @@ class ProcessAiEtfDataExtractionService
             [
                 'close_price' => $closePrice,
                 'volume' => $price['volume'] ?? null,
-                'source_id' => $extraction->data_source_id,
+                'data_source_id' => $extraction->data_source_id,
                 'retrieved_at' => now(),
             ]
         );
@@ -134,7 +134,7 @@ class ProcessAiEtfDataExtractionService
             ],
             [
                 'nav_per_share' => $navPerShare,
-                'source_id' => $extraction->data_source_id,
+                'data_source_id' => $extraction->data_source_id,
                 'source_as_of_date' => $navDate,
                 'retrieved_at' => now(),
             ]
@@ -170,7 +170,7 @@ class ProcessAiEtfDataExtractionService
             ],
             [
                 'assets_under_management' => $assetsUnderManagement,
-                'source_id' => $extraction->data_source_id,
+                'data_source_id' => $extraction->data_source_id,
                 'source_as_of_date' => $aumDate,
                 'retrieved_at' => now(),
             ]
@@ -220,7 +220,7 @@ class ProcessAiEtfDataExtractionService
             ],
             [
                 'payment_date' => $paymentDate,
-                'source_id' => $extraction->data_source_id,
+                'data_source_id' => $extraction->data_source_id,
                 'source_as_of_date' => $exDividendDate,
                 'retrieved_at' => now(),
             ]

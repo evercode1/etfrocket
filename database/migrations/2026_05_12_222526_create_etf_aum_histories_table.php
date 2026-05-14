@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedInteger('etf_id')->index();
             $table->date('aum_date')->index();
             $table->bigInteger('assets_under_management');
-            $table->unsignedInteger('source_id')->nullable();
+            $table->unsignedInteger('data_source_id')->nullable();
             $table->date('source_as_of_date')->nullable();
             $table->timestamp('retrieved_at')->nullable();
             $table->timestamps();
