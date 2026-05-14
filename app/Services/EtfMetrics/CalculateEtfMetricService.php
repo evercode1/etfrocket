@@ -10,6 +10,7 @@ use App\Models\EtfNavHistory;
 use App\Models\EtfPriceHistory;
 use App\Models\MetricDirection;
 use App\Models\PerformanceRangeType;
+use Illuminate\Support\Facades\Log;
 
 class CalculateEtfMetricService
 {
@@ -21,6 +22,29 @@ class CalculateEtfMetricService
 
         $startPrice = $this->getStartPrice($etf->id, $startDate);
         $endPrice = $this->getEndPrice($etf->id, $endDate);
+
+        $startNav = $this->getStartNav($etf->id, $startDate);
+        $endNav = $this->getEndNav($etf->id, $endDate);
+
+        $startAum = $this->getStartAum($etf->id, $startDate);
+        $endAum = $this->getEndAum($etf->id, $endDate);
+
+        if (
+            is_null($startPrice) ||
+            is_null($endPrice)
+        ) {
+            Log::warning('Skipping ETF metric calculation due to missing price data.', [
+                'etf_id' => $etf->id,
+                'symbol' => $etf->symbol,
+                'performance_range_type_id' => $performance_range_type_id,
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+                'has_start_price' => ! is_null($startPrice),
+                'has_end_price' => ! is_null($endPrice),
+            ]);
+
+            return null;
+        }
 
         $priceChange = $this->calculateRawChange($startPrice, $endPrice);
         $priceChangePercentage = $this->calculatePercentageChange($startPrice, $endPrice);
@@ -37,9 +61,6 @@ class CalculateEtfMetricService
             $dividendsPaid
         );
 
-        $startNav = $this->getStartNav($etf->id, $startDate);
-        $endNav = $this->getEndNav($etf->id, $endDate);
-
         $navChange = $this->calculateRawChange($startNav, $endNav);
         $navErosionPercentage = $this->calculateNavErosionPercentage(
             $startNav,
@@ -48,9 +69,6 @@ class CalculateEtfMetricService
         );
 
         $navDirectionId = $this->getNavDirectionId($navErosionPercentage);
-
-        $startAum = $this->getStartAum($etf->id, $startDate);
-        $endAum = $this->getEndAum($etf->id, $endDate);
 
         $aumChange = $this->calculateRawChange($startAum, $endAum);
         $aumChangePercentage = $this->calculatePercentageChange($startAum, $endAum);
@@ -208,7 +226,7 @@ class CalculateEtfMetricService
 
     private function calculateTotalReturnPercentage(?float $startPrice, ?float $endPrice, float $dividendsPaid): ?float
     {
-        if (is_null($startPrice) || is_null($endPrice) || $startPrice == 0) {
+        if (is_null($startPrice) || is_null($endPrice) || (float) $startPrice === 0.0) {
             return null;
         }
 
@@ -217,7 +235,7 @@ class CalculateEtfMetricService
 
     private function calculateNavErosionPercentage(?float $startNav, ?float $endNav, float $dividendsPaid): ?float
     {
-        if (is_null($startNav) || is_null($endNav) || $startNav == 0) {
+        if (is_null($startNav) || is_null($endNav) || (float) $startNav === 0.0) {
             return null;
         }
 

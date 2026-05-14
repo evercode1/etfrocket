@@ -426,6 +426,76 @@ class EtfMetricUnitTest extends TestCase
         }
     }
 
+    public function test_it_returns_null_when_start_price_is_missing()
+    {
+        $etf = $this->createEtf();
+
+        EtfPriceHistory::create([
+            'etf_id' => $etf->id,
+            'price_date' => now()->subDays(40)->toDateString(),
+            'close_price' => 11.0000,
+        ]);
+
+        $metric = (new CalculateEtfMetricService)->calculate(
+            $etf,
+            PerformanceRangeType::THIRTY_DAY
+        );
+
+        $this->assertNull($metric);
+
+        $this->assertEquals(0, EtfMetric::count());
+    }
+
+    public function test_it_returns_null_when_end_price_is_missing()
+    {
+        $etf = $this->createEtf();
+
+        EtfPriceHistory::create([
+            'etf_id' => $etf->id,
+            'price_date' => now()->addDays(1)->toDateString(),
+            'close_price' => 10.0000,
+        ]);
+
+        $metric = (new CalculateEtfMetricService)->calculate(
+            $etf,
+            PerformanceRangeType::THIRTY_DAY
+        );
+
+        $this->assertNull($metric);
+
+        $this->assertEquals(0, EtfMetric::count());
+    }
+
+    public function test_it_still_creates_metric_when_nav_and_aum_are_missing()
+    {
+        $etf = $this->createEtf();
+
+        EtfPriceHistory::create([
+            'etf_id' => $etf->id,
+            'price_date' => now()->subDays(30)->toDateString(),
+            'close_price' => 10.0000,
+        ]);
+
+        EtfPriceHistory::create([
+            'etf_id' => $etf->id,
+            'price_date' => now()->toDateString(),
+            'close_price' => 11.0000,
+        ]);
+
+        $metric = (new CalculateEtfMetricService)->calculate(
+            $etf,
+            PerformanceRangeType::THIRTY_DAY
+        );
+
+        $this->assertNotNull($metric);
+        $this->assertEquals(10.0000, (float) $metric->price_change_percentage);
+        $this->assertNull($metric->start_nav);
+        $this->assertNull($metric->end_nav);
+        $this->assertNull($metric->start_aum);
+        $this->assertNull($metric->end_aum);
+    }
+
+
     private function createEtf(): Etf
     {
         return Etf::create([

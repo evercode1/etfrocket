@@ -11,7 +11,7 @@ use Throwable;
 
 class CalculateEtfMetrics extends Command
 {
-    protected $signature = 'etf:calculate-metrics {--symbol= : Calculate metrics for a single ETF symbol}';
+    protected $signature = 'etfs:calculate-metrics {--symbol= : Calculate metrics for a single ETF symbol}';
 
     protected $description = 'Calculate ETF performance metrics for all active ETFs and performance range types.';
 
