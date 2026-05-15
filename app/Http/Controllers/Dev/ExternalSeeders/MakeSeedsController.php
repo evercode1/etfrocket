@@ -29,6 +29,7 @@ class MakeSeedsController extends Controller
             'PerformanceRangeTypes',
             'Statuses',
             'SupportTopics',
+            'TransactionTypes',
 
         ];
 
