@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\User\Etfs\EtfsFilterController;
 use App\Http\Controllers\User\Etfs\EtfsListController;
+use App\Http\Controllers\User\Etfs\EtfComparisonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/get-etf-filters', [EtfsFilterController::class, 'getFilters']);
 
     Route::get('/list-etfs', [EtfsListController::class, 'listEtfs']);
+
+    Route::get('/compare-etfs', [EtfComparisonController::class, 'compareEtfs']);
    
 
 });
