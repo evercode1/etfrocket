@@ -43,8 +43,6 @@ class EtfFactory extends Factory
 
             'website_url' => $this->faker->url(),
 
-            'last_data_update' => now(),
-
             'notes' => $this->faker->sentence(),
 
         ];
