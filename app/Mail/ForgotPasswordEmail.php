@@ -30,7 +30,7 @@ class ForgotPasswordEmail extends Mailable
     {
         return new Envelope(
 
-            subject: 'Daily ETF Stats Password Reset Request',
+            subject: 'Etf Rocket Password Reset Request',
 
         );
 
@@ -47,7 +47,7 @@ class ForgotPasswordEmail extends Mailable
 
             with: [
 
-                'url' => 'https://dailyetfstats.com/get-password-reset-form/' . $this->token
+                'url' => 'https://etfrocket.com/get-password-reset-form/' . $this->token
        
             ],
    

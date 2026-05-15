@@ -77,7 +77,7 @@ class AiEtfDataExtractionService
         $currentDate = Carbon::now()->format('Y-m-d');
 
         return "
-You are extracting current ETF data for Daily ETF Stats.
+You are extracting current ETF data for Etf Rocket.
 
 Today's date: {$currentDate}
 
