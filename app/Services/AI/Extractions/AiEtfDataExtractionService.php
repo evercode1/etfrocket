@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Services\Ai\Extractions;
+namespace App\Services\AI\Extractions;
 
 use App\Models\AiDataExtraction;
 use App\Models\Etf;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class AiEtfDataExtractionService
 {
@@ -73,35 +74,66 @@ class AiEtfDataExtractionService
 
     private function buildPrompt(Etf $etf): string
     {
+        $currentDate = Carbon::now()->format('Y-m-d');
+
         return "
 You are extracting current ETF data for Daily ETF Stats.
+
+Today's date: {$currentDate}
 
 ETF:
 Symbol: {$etf->symbol}
 Fund Name: {$etf->fund_name}
 Official Website URL: {$etf->website_url}
 
-Find the latest available public data for this ETF from the official issuer page or reliable financial data sources.
+Find the most recent publicly available ETF data as of today's date ({$currentDate}).
 
-Extract the following if available:
-- close price
-- price date
+Source priority:
+- Prefer the official issuer website or issuer fact sheet.
+- Use reliable financial data sources only when official issuer data is unavailable.
+- Do not use outdated historical values unless they are explicitly the latest published figures.
+
+Extract the following fields if available:
+- close_price
+- price_date
 - volume
-- NAV per share
-- NAV as-of date
-- assets under management
-- AUM as-of date
-- latest dividend amount
-- ex-dividend date
-- payment date
+- nav_per_share
+- nav_as_of_date
+- assets_under_management
+- aum_as_of_date
+- dividend_amount
+- ex_dividend_date
+- payment_date
+- source_url
+- source_as_of_date
 
-Rules:
+Price data rules:
+- Use the most recent completed trading day's closing price.
+- Do not use intraday, premarket, or after-hours pricing.
+- If markets are currently open, use the previous completed trading session.
+- If the latest completed trading day is not available, return null.
+
+NAV rules:
+- Use the latest officially published NAV per share.
+- If the NAV as-of date cannot be verified, return null for the date.
+
+AUM rules:
+- Use the latest officially reported assets under management.
+- Convert abbreviated values to full numeric values.
+- Example: 1.25B should be returned as 1250000000.
+- If the AUM as-of date cannot be verified, return null for the date.
+
+Dividend rules:
+- Use the latest declared or paid distribution data.
+- Do not use trailing twelve-month yield as the dividend amount.
+- If ex-dividend date or payment date cannot be verified, return null.
+
+General rules:
 - Do not guess.
 - If a value is not available, return null.
 - Dates must be YYYY-MM-DD.
 - Numbers must be numeric, not formatted strings.
-- Use the most recent available data.
-- Include source_url and source_as_of_date where possible.
+- Return only data matching the required JSON schema.
 ";
     }
 
