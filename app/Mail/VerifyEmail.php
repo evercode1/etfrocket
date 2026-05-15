@@ -48,7 +48,7 @@ class VerifyEmail extends Mailable
     {
         return new Envelope(
 
-            subject: 'Daily ETF Stats Verify Account Email',
+            subject: 'Etf Rocket Verify Account Email',
 
         );
     }

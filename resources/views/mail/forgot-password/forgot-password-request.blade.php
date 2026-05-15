@@ -14,5 +14,5 @@ You may also use the url below:
 {{ $url }}
 
 Thanks,<br>
-Daily ETF Rocket Support
+ETF Rocket Support
 </x-mail::message>
