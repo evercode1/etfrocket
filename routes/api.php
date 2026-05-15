@@ -87,6 +87,18 @@ IncludeRoutes::file('routes/Auth/auth.php');
 
 IncludeRoutes::file('routes/User/Etfs/etfs.php');
 
+
+/*
+|--------------------------------------------------------------------------
+| Portfolio ROUTES
+|--------------------------------------------------------------------------
+|
+| routes for user portfolio, requires authentication
+|
+*/
+
+IncludeRoutes::file('routes/User/Portfolios/portfolios.php');
+
 /*
 |--------------------------------------------------------------------------
 | Settings ROUTES
