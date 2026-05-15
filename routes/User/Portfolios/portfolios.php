@@ -49,4 +49,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::delete('/delete-portfolio-transaction/{id}', [ PortfolioTransactionsController::class, 'deletePortfolioTransaction']);
 
+    Route::delete('/delete-all-portfolio-transactions/{portfolio_id}', [PortfolioTransactionsController::class,'deleteAllPortfolioTransactions']);
+
+    // import portfolio transactions
+
+    Route::get('/get-import-portfolio-transactions-config', [PortfolioTransactionsController::class,'getImportPortfolioTransactionsConfig']);
+
+    Route::post('/import-portfolio-transactions/{portfolio_id}', [PortfolioTransactionsController::class,'importPortfolioTransactions']);
+
+    Route::get('/export-portfolio-transactions/{portfolio_id}', [PortfolioTransactionsController::class,'exportPortfolioTransactions']);
+
 });
