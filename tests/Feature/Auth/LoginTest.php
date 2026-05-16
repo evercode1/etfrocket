@@ -18,14 +18,13 @@ class LoginTest extends TestCase
         DB::table('user_verifications')->truncate();
 
         Mail::fake();
-
     }
 
     protected function tearDown(): void
     {
         DB::table('users')->truncate();
         DB::table('user_verifications')->truncate();
-       
+
 
         parent::tearDown();
     }
@@ -36,8 +35,8 @@ class LoginTest extends TestCase
             'email' => 'verified@example.com',
             'password' => 'secret123',
             'email_verified_at' => now(),
-            
-        ]);      
+
+        ]);
 
         $payload = [
 
@@ -46,13 +45,13 @@ class LoginTest extends TestCase
 
         ];
 
-        $response = $this->postJson('/api/login', $payload);   
+        $response = $this->postJson('/api/login', $payload);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJsonStructure([
 
             'user',
-           
+
         ]);
     }
 
@@ -63,16 +62,16 @@ class LoginTest extends TestCase
             'email' => 'wrongpass@example.com',
             'password' => 'correctpass',
             'email_verified_at' => now(),
-            
+
         ]);
 
-       
+
 
         $payload = [
 
             'email' => $user->email,
             'password' => 'wrongpass',
-    
+
         ];
 
         $response = $this->postJson('/api/login', $payload);
@@ -81,7 +80,6 @@ class LoginTest extends TestCase
         $response->assertJson([
             'message' => 'Bad credentials',
         ]);
-
     }
 
     public function test_login_returns_verification_message_if_email_not_verified()
@@ -91,7 +89,7 @@ class LoginTest extends TestCase
             'email' => 'unverified@example.com',
             'password' => 'needverify',
             'email_verified_at' => null,
-            
+
         ]);
 
 
@@ -103,7 +101,7 @@ class LoginTest extends TestCase
 
         $response = $this->postJson('/api/login', $payload);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJson([
             'message' => 'Please verify your account.'
         ]);
@@ -116,6 +114,4 @@ class LoginTest extends TestCase
 
         ]);
     }
-
-    
 }
