@@ -34,6 +34,12 @@ class MakeAdminUsersSeederController extends Controller
         ]);
 
 
+        // use UserFactory to create 100 random users, no admins. 
+        User::factory()->count(99)->create([
+            'is_admin' => 0,
+        ]);
+
+
         return ['message' => 'Admin Users Seeded'];
     }
 }
