@@ -10,11 +10,12 @@ use App\Mail\VerifyEmail;
 use App\Models\UserVerification;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class RegistrationTransactionService
 {
 
-    public function createUser($request)
+    public function createUser(Request $request)
     {
 
         // Start transaction!
@@ -44,11 +45,9 @@ class RegistrationTransactionService
                 'created_at' => now(),
             ]);
 
-            
+
 
             DB::commit();
-
-
         } catch (\Exception $e) {
 
             // Rollback transaction
@@ -63,10 +62,10 @@ class RegistrationTransactionService
 
         // 3. Send the email
 
-            Mail::to($user->email)
-                ->send(new VerifyEmail($user, $verificationToken));
+        Mail::to($user->email)
+            ->send(new VerifyEmail($user, $verificationToken));
 
-                Log::info('Sending email to: ' . $user->email);
+        Log::info('Sending email to: ' . $user->email);
 
         return $user;
     }

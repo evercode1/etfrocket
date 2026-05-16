@@ -21,30 +21,25 @@ class RegistrationService
             // create new access token
 
             $token = $user->createToken('deftdata')->plainTextToken;
-
         } catch (\Exception $e) {
-     
+
             (new LogFailureService)->logFailure($e, 'register_user', __CLASS__);
 
             return response()->json([
 
                 'status' => 'error',
-                
-                'message' => 'Oops! Something went wrong. Please try again later or contact support if the issue persists.'
-            
-            ], 500);
 
+                'message' => 'Oops! Something went wrong. Please try again later or contact support if the issue persists.'
+
+            ], 500);
         }
 
         return response()->json([
 
             'status' => 'success',
             'user' => $user,
-            'token' => $token,
             'message' => 'please confirm your email'
 
         ], 201);
-
     }
-
 }
