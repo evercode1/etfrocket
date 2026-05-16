@@ -69,7 +69,7 @@ class LoginService
             // 4. Return the specific message your test is looking for
             return response()->json([
                 'message' => 'Please verify your account.'
-            ], 201);
+            ], 200);
         }
 
         // clear out any old access tokens
@@ -104,6 +104,6 @@ class LoginService
 
         // feedback to the browser
 
-        return response()->json($responseData, 201);
+        return response()->json($responseData, 200);
     }
 }
