@@ -5,6 +5,8 @@ namespace App\Utilities;
 class Auth
 {
 
+    // Avoids having to type auth()->id() and auth()->user() everywhere, so we can use Auth::id() and Auth::user() instead.
+
     public static function id()
     {
 
@@ -14,7 +16,6 @@ class Auth
         $auth = auth();
 
         return $auth->id();
-
     }
 
     public static function user()
@@ -26,7 +27,5 @@ class Auth
         $auth = auth();
 
         return $auth->user();
-
     }
-
 }
