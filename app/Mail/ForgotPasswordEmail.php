@@ -46,7 +46,7 @@ class ForgotPasswordEmail extends Mailable
 
             with: [
 
-                'url' => env('FRONTEND_URL') . $this->token
+                'url' => env('FRONTEND_URL') . '/auth/reset-password/' . $this->token
 
             ],
 

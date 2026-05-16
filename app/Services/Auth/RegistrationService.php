@@ -5,6 +5,7 @@ namespace App\Services\Auth;
 use App\Services\Auth\RegistrationTransactionService;
 use App\Services\FailureLogs\LogFailureService;
 
+
 class RegistrationService
 {
 

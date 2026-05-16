@@ -26,7 +26,7 @@ class MakeAdminUsersSeederController extends Controller
 
             'name' => 'Brokie1',
             'email' => 'ikon321@yahoo.com',
-            'password' => 'Nova@123',
+            'password' => '12345678',
             'is_admin' => 1,
             'email_verified_at' => Carbon::now()->subDays(6),
 

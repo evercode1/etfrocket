@@ -10,12 +10,11 @@ use App\Mail\VerifyEmail;
 use App\Models\UserVerification;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Http\Request;
 
 class RegistrationTransactionService
 {
 
-    public function createUser(Request $request)
+    public function createUser($request)
     {
 
         // Start transaction!
