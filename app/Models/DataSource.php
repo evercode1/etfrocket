@@ -21,6 +21,7 @@ class DataSource extends Model
     const YAHOO_FINANCE = 9;
     const FMP_API = 10;
     const SEEKING_ALPHA = 11;
+    const AI_SCRAPER = 12;
 
     protected $fillable = [
 
