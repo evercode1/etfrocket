@@ -70,6 +70,11 @@ class DataSourcesSeederController extends Controller
                 'website_url' => 'https://seekingalpha.com',
             ],
 
+            [
+                'data_source_name' => 'AI Scraper',
+                'website_url' => null,
+            ],
+
         ];
 
         foreach ($sources as $source) {
