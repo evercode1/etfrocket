@@ -35,6 +35,5 @@ class MakeAdminUsersSeederController extends Controller
 
 
         return ['message' => 'Admin Users Seeded'];
-
     }
 }
