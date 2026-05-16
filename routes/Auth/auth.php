@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\Auth\AuthController;
 use App\Http\Controllers\User\Auth\PasswordResetController;
 use App\Http\Controllers\User\Auth\UserVerificationController;
+use Illuminate\Http\Request;
 
 // Account Verification
 
@@ -12,15 +13,22 @@ Route::get('/request-verification-token', [UserVerificationController::class, 'r
 
 // Auth
 
-Route::post('/register',[AuthController::class, 'register']);
-Route::post('/login',[AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/login-check', [AuthController::class, 'loginCheck']);
 
-Route::group(['middleware' => ['auth:sanctum']], function() {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
-    Route::post('/logout',[AuthController::class, 'logout']);
+    return response()->json([
+        'success' => true,
+        'data' => $request->user(),
+    ]);
+});
 
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
 
 Route::get('/permission-denied', [AuthController::class, 'permissionDenied']);

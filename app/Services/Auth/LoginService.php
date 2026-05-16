@@ -56,14 +56,14 @@ class LoginService
             $verificationToken = Str::random(60);
 
             // 2. Save to your user_verifications table
-            
+
             UserVerification::updateOrCreate(
                 ['user_id' => $user->id],
                 ['token' => $verificationToken, 'created_at' => now()]
             );
 
             // 3. Send the email (This satisfies your Mail::assertSent check)
-            
+
             Mail::to($user->email)->send(new VerifyEmail($user, $verificationToken));
 
             // 4. Return the specific message your test is looking for
@@ -88,12 +88,14 @@ class LoginService
         $responseData = [
 
             'user' => $user->makeHidden([
-
                 'password',
+                'remember_token',
                 'email_verified_at',
                 'created_at',
-                'updated_at'
-
+                'updated_at',
+                'stripe_id',
+                'pm_type',
+                'pm_last_four',
             ]),
 
             'token' => $token
