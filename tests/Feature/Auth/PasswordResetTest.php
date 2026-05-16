@@ -46,7 +46,7 @@ class PasswordResetTest extends TestCase
             'password_confirmation' => 'new-password',
         ]);
 
-        $response->assertOk()
+        $response->assertStatus(201)
             ->assertJson([
                 'message' => 'Your Password has been updated',
             ]);

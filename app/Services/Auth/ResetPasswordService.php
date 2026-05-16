@@ -14,11 +14,11 @@ class ResetPasswordService
     {
 
         $request->validate([
-            
+
             'password' => 'required|string|confirmed',
             'user_id' => 'required|integer',
             'token' => 'required|string'
-        
+
         ]);
 
         $passwordReset = PasswordResetToken::where('token', $request->token)->first();
@@ -27,15 +27,14 @@ class ResetPasswordService
 
         $user = User::find($id);
 
-        if ( $passwordReset->email !== $user->email ) {
+        if ($passwordReset->email !== $user->email) {
 
             return response()->json([
-            
-            "status" => "error",
-            "message" => 'invalid credentials',
-            
-            ], 401);
 
+                "status" => "error",
+                "message" => 'invalid credentials',
+
+            ], 401);
         }
 
         $password = Hash::make($request->password);
@@ -43,25 +42,22 @@ class ResetPasswordService
         // eloquent wouldn't update password, had to use DB
 
         DB::table('users')
-            
-            ->where('id',$id )
-              
+
+            ->where('id', $id)
+
             ->update(['password' => $password]);
 
         // delete token
 
         $oldToken = $request->token;
 
-        if ( PasswordResetToken::where('token', $oldToken)->exists() ){
+        if (PasswordResetToken::where('token', $oldToken)->exists()) {
 
             $oldToken = PasswordResetToken::where('token', $oldToken)->first();
 
             $oldToken->delete();
-
         }
 
-        return response()->json(['message' => 'Your Password has been updated', 201]);
-
+        return response()->json(['message' => 'Your Password has been updated'], 201);
     }
-
 }
