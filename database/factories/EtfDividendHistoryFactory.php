@@ -28,10 +28,7 @@ class EtfDividendHistoryFactory extends Factory
 
             'ex_dividend_date' => $exDividendDate,
 
-            'payment_date' => $this->faker->optional()->dateTimeBetween(
-                $exDividendDate,
-                '+14 days'
-            )->format('Y-m-d'),
+            'payment_date' => $this->faker->dateTimeBetween($exDividendDate, '+14 days')->format('Y-m-d'),
 
             'data_source_id' => DataSource::MANUAL_ENTRY,
 
