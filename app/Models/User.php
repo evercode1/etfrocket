@@ -40,8 +40,10 @@ class User extends Authenticatable
         return [
             'is_admin' => 'boolean',
             'is_influencer' => 'boolean',
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'created_at' => 'date:Y-m-d',
+            'updated_at' => 'date:Y-m-d',
+            'email_verified_at' => 'datetime:Y-m-d H:i:s',
         ];
     }
 

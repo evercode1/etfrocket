@@ -12,7 +12,7 @@ class UserStatsController extends Controller
 {
     public function userSignupStats(Request $request)
     {
-        $range = $request->input('range', '1y');
+        $range = $request->input('range', '7d');
 
         $allowedRanges = [
             '1d',
@@ -24,18 +24,35 @@ class UserStatsController extends Controller
         ];
 
         if (! in_array($range, $allowedRanges)) {
-            $range = '1y';
+            $range = '7d';
         }
 
         [$startDate, $endDate, $groupFormat, $labelFormat] = $this->getRangeConfig($range);
 
-        $query = User::query();
+        $signupQuery = User::query();
 
         if ($startDate) {
-            $query->where('created_at', '>=', $startDate);
+            $signupQuery->where('created_at', '>=', $startDate);
         }
 
-        $rows = $query
+        $signupRows = $signupQuery
+            ->select([
+                DB::raw("DATE_FORMAT(created_at, '{$groupFormat}') as period"),
+                DB::raw('COUNT(*) as total'),
+            ])
+            ->groupBy('period')
+            ->orderBy('period')
+            ->get()
+            ->keyBy('period');
+
+        $verifiedQuery = User::query()
+            ->whereNotNull('email_verified_at');
+
+        if ($startDate) {
+            $verifiedQuery->where('created_at', '>=', $startDate);
+        }
+
+        $verifiedRows = $verifiedQuery
             ->select([
                 DB::raw("DATE_FORMAT(created_at, '{$groupFormat}') as period"),
                 DB::raw('COUNT(*) as total'),
@@ -51,14 +68,17 @@ class UserStatsController extends Controller
             $endDate,
             $groupFormat,
             $labelFormat,
-            $rows
+            $signupRows,
+            $verifiedRows
         );
 
         return response()->json([
             'status' => 'success',
             'range' => $range,
             'total_users' => User::count(),
+            'total_verified_users' => User::whereNotNull('email_verified_at')->count(),
             'range_total' => collect($chartData)->sum('signups'),
+            'range_verified_total' => collect($chartData)->sum('verified'),
             'data' => $chartData,
             'available_ranges' => $allowedRanges,
         ], 200);
@@ -119,7 +139,8 @@ class UserStatsController extends Controller
         Carbon $endDate,
         string $groupFormat,
         string $labelFormat,
-        $rows
+        $signupRows,
+        $verifiedRows
     ): array {
         if ($range === 'max') {
             $firstUserDate = User::min('created_at');
@@ -132,6 +153,7 @@ class UserStatsController extends Controller
         }
 
         $date = $startDate->copy();
+
         $chartData = [];
 
         while ($date <= $endDate) {
@@ -140,7 +162,8 @@ class UserStatsController extends Controller
             $chartData[] = [
                 'period' => $period,
                 'label' => $date->format($labelFormat),
-                'signups' => (int) optional($rows->get($period))->total,
+                'signups' => (int) optional($signupRows->get($period))->total,
+                'verified' => (int) optional($verifiedRows->get($period))->total,
             ];
 
             if ($range === '1d') {
