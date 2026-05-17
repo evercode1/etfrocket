@@ -30,38 +30,45 @@ class UserSignupStatsTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_admin_can_get_default_one_year_user_signup_stats(): void
+    public function test_admin_can_get_default_seven_day_user_signup_stats(): void
     {
         $admin = User::factory()->create([
             'is_admin' => 1,
             'created_at' => now(),
+            'email_verified_at' => now(),
         ]);
 
         Sanctum::actingAs($admin, ['*']);
 
         User::factory()->create([
-            'created_at' => '2025-06-15 10:00:00',
+            'created_at' => '2026-05-16 10:00:00',
+            'email_verified_at' => '2026-05-16 10:30:00',
         ]);
 
         User::factory()->create([
-            'created_at' => '2025-06-20 10:00:00',
+            'created_at' => '2026-05-14 10:00:00',
+            'email_verified_at' => null,
         ]);
 
         User::factory()->create([
-            'created_at' => '2026-01-10 10:00:00',
+            'created_at' => '2026-05-10 10:00:00',
+            'email_verified_at' => '2026-05-10 10:30:00',
         ]);
 
         User::factory()->create([
-            'created_at' => '2024-01-10 10:00:00',
+            'created_at' => '2026-05-01 10:00:00',
+            'email_verified_at' => '2026-05-01 10:30:00',
         ]);
 
         $response = $this->getJson('/api/user-signup-stats');
 
         $response->assertOk()
             ->assertJsonPath('status', 'success')
-            ->assertJsonPath('range', '1y')
+            ->assertJsonPath('range', '7d')
             ->assertJsonPath('total_users', 5)
+            ->assertJsonPath('total_verified_users', 4)
             ->assertJsonPath('range_total', 4)
+            ->assertJsonPath('range_verified_total', 3)
             ->assertJsonPath('available_ranges', [
                 '1d',
                 '7d',
@@ -73,17 +80,37 @@ class UserSignupStatsTest extends TestCase
 
         $data = collect($response->json('data'));
 
-        $this->assertSame('2025-05', $data->first()['period']);
-        $this->assertSame('2026-05', $data->last()['period']);
+        $this->assertSame('2026-05-10', $data->first()['period']);
+        $this->assertSame('2026-05-16', $data->last()['period']);
 
         $this->assertSame(
-            2,
-            $data->firstWhere('period', '2025-06')['signups']
+            1,
+            $data->firstWhere('period', '2026-05-10')['signups']
         );
 
         $this->assertSame(
             1,
-            $data->firstWhere('period', '2026-01')['signups']
+            $data->firstWhere('period', '2026-05-10')['verified']
+        );
+
+        $this->assertSame(
+            1,
+            $data->firstWhere('period', '2026-05-14')['signups']
+        );
+
+        $this->assertSame(
+            0,
+            $data->firstWhere('period', '2026-05-14')['verified']
+        );
+
+        $this->assertSame(
+            2,
+            $data->firstWhere('period', '2026-05-16')['signups']
+        );
+
+        $this->assertSame(
+            2,
+            $data->firstWhere('period', '2026-05-16')['verified']
         );
     }
 
@@ -235,7 +262,7 @@ class UserSignupStatsTest extends TestCase
         );
     }
 
-    public function test_invalid_range_defaults_to_one_year(): void
+    public function test_invalid_range_defaults_to_seven_days(): void
     {
         $admin = User::factory()->create([
             'is_admin' => 1,
@@ -248,7 +275,7 @@ class UserSignupStatsTest extends TestCase
 
         $response->assertOk()
             ->assertJsonPath('status', 'success')
-            ->assertJsonPath('range', '1y');
+            ->assertJsonPath('range', '7d');
     }
 
     public function test_guest_cannot_get_user_signup_stats(): void
