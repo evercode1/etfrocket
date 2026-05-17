@@ -35,7 +35,7 @@ class VerifyEmail extends Mailable
             markdown: 'mail.verification-request',
             with: [
                 // Generate the full URL here instead of just the token
-                'url' => config('app.url') . '/api/account/verify/' . $this->token,
+                'url' => env('FRONTEND_URL') . '/account/verify/' . $this->token,
                 'name' => $this->user->name,
             ],
         );

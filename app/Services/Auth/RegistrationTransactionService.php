@@ -44,11 +44,9 @@ class RegistrationTransactionService
                 'created_at' => now(),
             ]);
 
-            
+
 
             DB::commit();
-
-
         } catch (\Exception $e) {
 
             // Rollback transaction
@@ -63,10 +61,10 @@ class RegistrationTransactionService
 
         // 3. Send the email
 
-            Mail::to($user->email)
-                ->send(new VerifyEmail($user, $verificationToken));
+        Mail::to($user->email)
+            ->send(new VerifyEmail($user, $verificationToken));
 
-                Log::info('Sending email to: ' . $user->email);
+        Log::info('Sending email to: ' . $user->email);
 
         return $user;
     }

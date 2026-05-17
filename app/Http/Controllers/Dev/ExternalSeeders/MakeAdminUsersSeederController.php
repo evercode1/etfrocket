@@ -26,11 +26,17 @@ class MakeAdminUsersSeederController extends Controller
 
             'name' => 'Brokie1',
             'email' => 'ikon321@yahoo.com',
-            'password' => 'Nova@123',
+            'password' => '12345678',
             'is_admin' => 1,
             'email_verified_at' => Carbon::now()->subDays(6),
 
 
+        ]);
+
+
+        // use UserFactory to create 100 random users, no admins. 
+        User::factory()->count(99)->create([
+            'is_admin' => 0,
         ]);
 
 

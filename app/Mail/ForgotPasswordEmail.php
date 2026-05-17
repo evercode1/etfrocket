@@ -13,12 +13,12 @@ class ForgotPasswordEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $token;
+    public string $token;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($token)
+    public function __construct(string $token)
     {
         $this->token = $token;
     }
@@ -33,7 +33,6 @@ class ForgotPasswordEmail extends Mailable
             subject: 'Etf Rocket Password Reset Request',
 
         );
-
     }
 
     /**
@@ -42,17 +41,16 @@ class ForgotPasswordEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            
+
             markdown: 'mail.forgot-password.forgot-password-request',
 
             with: [
 
-                'url' => 'https://etfrocket.com/get-password-reset-form/' . $this->token
-       
-            ],
-   
-        );
+                'url' => env('FRONTEND_URL') . '/auth/reset-password/' . $this->token
 
+            ],
+
+        );
     }
 
     /**
