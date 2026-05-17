@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Support\SupportController;
 use App\Http\Controllers\Admin\Support\ManageUsersController;
 use App\Http\Controllers\Admin\Support\UserStatsController;
+use App\Http\Controllers\Admin\Support\ManageHelpArticlesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::group(['middleware' => ['auth:sanctum', 'isAdmin']], function () {
     Route::delete('/delete-user/{id}', [ManageUsersController::class, 'destroy']);
     Route::get('/manage-users/search/{keyword}', [ManageUsersController::class, 'search']);
 
-    // user stats
+    // User Stats
 
     Route::get('/user-signup-stats', [UserStatsController::class, 'userSignupStats']);
 
@@ -37,4 +38,16 @@ Route::group(['middleware' => ['auth:sanctum', 'isAdmin']], function () {
     Route::get('/get-support-reply-form', [SupportController::class, 'getSupportReplyFormConfig']);
     Route::post('/support-reply-to-ticket', [SupportController::class, 'supportReplyToTicket']);
     Route::post('/close-ticket', [SupportController::class, 'closeTicket']);
+
+    // Help Articles
+
+    Route::get('/manage-help-articles', [ManageHelpArticlesController::class, 'index']);
+
+    Route::get('/manage-help-article/{id}', [ManageHelpArticlesController::class, 'show']);
+
+    Route::post('/create-help-article', [ManageHelpArticlesController::class, 'store']);
+
+    Route::post('/update-help-article/{id}', [ManageHelpArticlesController::class, 'update']);
+
+    Route::delete('/delete-help-article/{id}', [ManageHelpArticlesController::class, 'destroy']);
 });

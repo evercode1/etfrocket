@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\User\Support\UserSupportController;
+use App\Http\Controllers\User\Support\UserHelpArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/create-support-ticket', [UserSupportController::class, 'store']);
     Route::get('/new-support-response-to-ticket-form', [UserSupportController::class, 'newResponseFormConfig']);
     Route::post('/respond-to-support-response', [UserSupportController::class, 'respondToSupport']);
-   
-
 });
+
+/*
+|--------------------------------------------------------------------------
+| Public Help Center
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/help-articles', [UserHelpArticleController::class, 'index']);
+
+Route::get('/help-article/{slug}', [UserHelpArticleController::class, 'show']);

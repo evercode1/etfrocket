@@ -2,6 +2,8 @@
 
 namespace App\Utilities;
 
+use App\Models\PersonalAccessToken;
+
 class Auth
 {
 
@@ -27,5 +29,22 @@ class Auth
         $auth = auth();
 
         return $auth->user();
+    }
+
+    public static function logout()
+    {
+
+        $user_id = Auth::id();
+
+        // delete all tokens for user       
+
+        PersonalAccessToken::where('tokenable_id', $user_id)->delete();
+
+        return response()->json([
+
+            'status' => 'success',
+            'message' => 'Logged out'
+
+        ]);
     }
 }
